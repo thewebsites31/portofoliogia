@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tentang Mata Kuliah — Etika Budaya</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #050510;
+      --surface: #0d0d1f;
+      --card: #111128;
+      --neon-pink: #ff2d78;
+      --neon-cyan: #00f5ff;
+      --neon-purple: #b044ff;
+      --text: #e8e8f0;
+      --muted: #7070a0;
+      --border: rgba(0,245,255,0.12);
+      --glow-cyan: 0 0 30px rgba(0,245,255,0.35);
+      --glow-pink: 0 0 30px rgba(255,45,120,0.30);
+      --radius: 18px;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    /* Noise overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.6;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    /* NAV */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 60px;
+      border-bottom: 1px solid var(--border);
+      background: rgba(5,5,16,0.82);
+      backdrop-filter: blur(18px);
+    }
+    .nav-left {
+      display: flex;
+      gap: 14px;
+      align-items: center;
+    }
+    .badge {
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(0,245,255,0.9);
+      padding: 10px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(0,245,255,0.22);
+      background: rgba(0,245,255,0.06);
+    }
+    .nav-title {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+      text-transform: uppercase;
+      font-size: 14px;
+      color: rgba(255,255,255,0.85);
+    }
+    .nav-links { display: flex; align-items: center; gap: 12px; }
+    .nav-links a {
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.70);
+      padding: 10px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(0,0,0,0.18);
+      transition: all 0.18s ease;
+    }
+    .nav-links a:hover {
+      border-color: rgba(255,45,120,0.55);
+      box-shadow: 0 0 0 4px rgba(255,45,120,0.10);
+      color: var(--text);
+      transform: translateY(-1px);
+    }
+
+    /* HERO */
+    .hero {
+      position: relative;
+      z-index: 1;
+      padding: 70px 60px 40px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: -80px -60px auto -60px;
+      height: 380px;
+      background:
+        radial-gradient(800px 400px at 15% 20%, rgba(255,45,120,0.20), transparent 62%),
+        radial-gradient(900px 460px at 80% 10%, rgba(176,68,255,0.18), transparent 62%),
+        radial-gradient(900px 520px at 60% 80%, rgba(0,245,255,0.10), transparent 65%);
+      pointer-events: none;
+      filter: blur(0px);
+    }
+    .hero-inner { position: relative; }
+    .kicker {
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: rgba(0,245,255,0.85);
+      margin-bottom: 16px;
+    }
+    h1 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: -0.02em;
+      font-size: clamp(36px, 4.8vw, 64px);
+      line-height: 1.05;
+      margin-bottom: 14px;
+    }
+    .glow {
+      background: linear-gradient(90deg, var(--neon-pink), var(--neon-purple), var(--neon-cyan));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .sub {
+      color: var(--muted);
+      line-height: 1.75;
+      font-size: 15px;
+      max-width: 70ch;
+    }
+
+    /* CONTENT */
+    .content {
+      position: relative;
+      z-index: 1;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px 60px 80px;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 18px;
+    }
+    .card {
+      border-radius: var(--radius);
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(17,17,40,0.76);
+      overflow: hidden;
+      position: relative;
+    }
+    .card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(520px 240px at 15% 0%, rgba(255,45,120,0.14), transparent 58%),
+        radial-gradient(520px 240px at 85% 100%, rgba(0,245,255,0.10), transparent 62%);
+      opacity: 0.9;
+      pointer-events: none;
+    }
+    .card-inner { position: relative; padding: 26px 26px 22px; }
+    .card-title {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: -0.01em;
+      font-size: 22px;
+      margin-bottom: 10px;
+    }
+    .card p { color: rgba(255,255,255,0.78); line-height: 1.85; font-size: 14px; }
+    .card p + p { margin-top: 12px; }
+
+    .pill-row {
+      margin-top: 14px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .pill {
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 10px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(0,0,0,0.14);
+      color: rgba(255,255,255,0.70);
+    }
+    .pill strong { color: rgba(0,245,255,0.9); font-weight: 700; }
+
+    /* LIST STYLE (neon bullets) */
+    ul {
+      list-style: none;
+      margin-top: 10px;
+      display: grid;
+      gap: 12px;
+    }
+    li {
+      position: relative;
+      padding: 12px 14px 12px 44px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.10);
+      background: rgba(0,0,0,0.14);
+      color: rgba(255,255,255,0.78);
+      line-height: 1.75;
+      font-size: 14px;
+    }
+    li::before {
+      content: '';
+      position: absolute;
+      left: 14px;
+      top: 16px;
+      width: 18px;
+      height: 18px;
+      border-radius: 6px;
+      background: linear-gradient(135deg, rgba(255,45,120,0.9), rgba(0,245,255,0.85));
+      box-shadow: var(--glow-pink);
+    }
+    li strong { color: rgba(255,255,255,0.92); }
+
+    footer {
+      position: relative;
+      z-index: 1;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 18px 60px 42px;
+      border-top: 1px solid rgba(255,255,255,0.10);
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      flex-wrap: wrap;
+      color: rgba(255,255,255,0.55);
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+    }
+
+    @media (max-width: 980px) {
+      nav { padding: 16px 20px; }
+      .hero { padding: 52px 20px 30px; }
+      .content { padding: 10px 20px 70px; }
+      footer { padding: 18px 20px 42px; }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="nav-left">
+      <div class="badge">// Mata Kuliah</div>
+      <div class="nav-title">Etika Budaya</div>
+    </div>
+    <div class="nav-links">
+      <a href="portofolio-individu.html" target="_blank" rel="noopener noreferrer">Kembali</a>
+      <a href="#implikasi">Implikasi</a>
+      <a href="#contoh">Contoh</a>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="hero-inner">
+      <div class="kicker">✦ Tentang Mata Kuliah</div>
+      <h1>Apa itu <span class="glow">Etika Budaya</span>?</h1>
+      <p class="sub">
+        Etika budaya membahas bagaimana norma, nilai, dan pertimbangan moral dalam suatu masyarakat membentuk cara manusia berpikir,
+        bersikap, berkomunikasi, serta menilai “baik-buruk”—termasuk dalam praktik kuliner.
+      </p>
+    </div>
+  </header>
+
+  <main class="content">
+    <section class="card" id="definisi">
+      <div class="card-inner">
+        <div class="card-title">Apa itu Etika Budaya?</div>
+        <p>
+          Etika budaya adalah penelitian tentang norma, nilai, dan pertimbangan moral masyarakat yang mempengaruhi cara orang bersikap,
+          berkomunikasi, mengambil keputusan, dan menilai “baik-buruk” dalam situasi tertentu. Etika membahas prinsip (apa yang seharusnya),
+          sedangkan budaya memberikan konteks.
+        </p>
+        <p>
+          Dengan kata lain, etika budaya mendorong kita untuk menyadari bahwa hal-hal yang dilakukan oleh manusia bukan satu-satunya alasan yang
+          mempengaruhi pilihan mereka. Sejarah, agama dan kepercayaan, tradisi, struktur sosial, dan kemajuan teknologi semua memengaruhi cara kita
+          berpikir.
+        </p>
+        <div class="pill-row">
+          <div class="pill"><strong>Etika</strong> = prinsip</div>
+          <div class="pill"><strong>Budaya</strong> = konteks</div>
+          <div class="pill"><strong>Hasil</strong> = keputusan bermakna</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card" id="landasan">
+      <div class="card-inner">
+        <div class="card-title">Definisi & Landasan Teoritis</div>
+        <p>
+          Dalam bidang filsafat, “etika budaya” dapat didefinisikan sebagai prinsip-prinsip moral yang mengatur tingkah laku dalam budaya tertentu,
+          baik secara langsung maupun tidak langsung. Etika budaya berpendapat bahwa budaya yang diciptakan oleh manusia harus mengandung nilai moral
+          universal—yakni aspek “baik-buruk” selaras dengan martabat manusia secara universal, meskipun ekspresi budayanya beragam.
+        </p>
+        <ul>
+          <li>
+            <strong>Teori Etika Umum:</strong> Deontologi menekankan tanggung jawab moral (jujur, tidak menipu kualitas/porsi). Utilitarianisme menilai
+            tindakan dari hasil (keputusan yang merusak kepercayaan merugikan kebahagiaan bersama). Etika kebajikan menempatkan karakter—jujur, murah hati,
+            bertanggung jawab—sebagai pusat profesionalisme.
+          </li>
+          <li>
+            <strong>Filsafat Etika Budaya:</strong> Materi kursus menyatakan bahwa orang-orang yang bermoral membuat budaya yang memiliki nilai-nilai moral.
+            Nilai moral ditanamkan dalam praktik budaya (misalnya budaya makan): menghormati satu sama lain saat makan dapat menjadi manifestasi nilai sosial universal.
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="card" id="implikasi">
+      <div class="card-inner">
+        <div class="card-title">Implikasi Praktis dalam Kuliner</div>
+        <ul>
+          <li>
+            <strong>Kejujuran dalam Promosi & Penyajian:</strong> Deskripsi menu dan foto makanan harus mencerminkan kenyataan. Foto makanan mengandung “janji tak
+            tertulis” kepada pelanggan. Menipu konsumen melanggar prinsip etika universal tentang menghormati konsumen sebagai individu bermartabat.
+          </li>
+          <li>
+            <strong>Keadilan & Kesejahteraan Pekerja:</strong> Pemilik restoran wajib mempraktikkan keadilan sosial (upah dan jam kerja yang adil). Eksploitasi pekerja
+            melanggar nilai etika keadilan. Praktik kerja yang adil merupakan bagian dari etika kuliner.
+          </li>
+          <li>
+            <strong>Sustainabilitas & Lingkungan:</strong> Etika menekankan “tidak merusak” (harm) terhadap orang lain dan lingkungan. Chef yang etis memilih bahan
+            berkelanjutan, meminimalkan limbah, dan mengelola sampah dengan bertanggung jawab.
+          </li>
+          <li>
+            <strong>Penghormatan terhadap Konsumen:</strong> Menghargai konsumen sebagai manusia bermartabat termasuk menjaga kebersihan dan keamanan makanan, serta memastikan
+            porsi dan harga sesuai janji. Manipulasi ukuran/porsi demi menekan biaya adalah praktik tidak etis.
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="card" id="contoh">
+      <div class="card-inner">
+        <div class="card-title">Contoh Aplikasi Kuliner Spesifik</div>
+        <ul>
+          <li>
+            <strong>Desain Menu:</strong> Gunakan label yang jelas (ikon bahan lokal/organik) agar konsumen bisa membuat pilihan etis. Pilihan sehat/lokal dapat ditaruh
+            lebih terlihat, bukan disembunyikan.
+          </li>
+          <li>
+            <strong>Sumber Bahan:</strong> Mengutamakan petani lokal, organik, atau produk bersertifikasi kesejahteraan hewan selaras dengan prinsip etika universal
+            tentang keadilan dan kesejahteraan makhluk hidup.
+          </li>
+          <li>
+            <strong>Fotografi Makanan:</strong> Gunakan foto yang akurat tanpa rekayasa berlebihan, sertakan informasi porsi/komposisi secukupnya sebagai wujud kewajiban
+            kejujuran kepada konsumen.
+          </li>
+          <li>
+            <strong>Pelayanan:</strong> Menjaga tata krama universal dan budaya setempat (sopan santun bertutur), serta memastikan pelanggan merasa dihormati tanpa memandang
+            status sosial.
+          </li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div>© 2026 Leigiavny Cantara Ashari — 2400101045</div>
+    <div><a href="portofolio-individu.html" target="_blank" rel="noopener noreferrer" style="text-decoration: underline;">Kembali ke Portofolio</a></div>
+  </footer>
+</body>
+</html>

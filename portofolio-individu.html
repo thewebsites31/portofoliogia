@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portofolio Individu</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #050510;
+    --surface: #0d0d1f;
+    --card: #111128;
+    --neon-pink: #ff2d78;
+    --neon-cyan: #00f5ff;
+    --neon-purple: #b044ff;
+    --neon-green: #00ff9d;
+    --text: #e8e8f0;
+    --muted: #7070a0;
+    --border: rgba(0,245,255,0.12);
+    --glow-pink: 0 0 30px rgba(255,45,120,0.4);
+    --glow-cyan: 0 0 30px rgba(0,245,255,0.4);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* Custom cursor */
+  .cursor {
+    width: 12px; height: 12px;
+    background: var(--neon-cyan);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%,-50%);
+    transition: transform 0.1s, width 0.2s, height 0.2s, background 0.2s;
+    mix-blend-mode: difference;
+  }
+  .cursor-ring {
+    width: 36px; height: 36px;
+    border: 1.5px solid rgba(0,245,255,0.5);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9998;
+    transform: translate(-50%,-50%);
+    transition: all 0.15s ease;
+  }
+
+  /* Noise overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.5;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 20px 60px;
+    border-bottom: 1px solid var(--border);
+    background: rgba(5,5,16,0.85);
+    backdrop-filter: blur(20px);
+  }
+  .nav-logo {
+    font-family: 'Space Mono', monospace;
+    font-size: 13px; font-weight: 700;
+    color: var(--neon-cyan);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .nav-links { display: flex; gap: 36px; align-items: center; }
+  .nav-links a {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px; font-weight: 500;
+    color: var(--muted);
+    text-decoration: none;
+    letter-spacing: 0.04em;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--text); }
+  .nav-links a.active { color: var(--text); }
+  .nav-btn {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px; font-weight: 700;
+    padding: 10px 20px;
+    background: transparent;
+    border: 1.5px solid var(--neon-cyan);
+    color: var(--neon-cyan);
+    border-radius: 4px;
+    cursor: pointer;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: all 0.2s;
+  }
+  .nav-btn:hover { background: var(--neon-cyan); color: var(--bg); box-shadow: var(--glow-cyan); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    text-align: center;
+    padding: 120px 60px 60px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 70% 60% at 50% 50%, rgba(0,245,255,0.06) 0%, transparent 70%),
+                radial-gradient(ellipse 40% 40% at 20% 80%, rgba(255,45,120,0.08) 0%, transparent 60%),
+                radial-gradient(ellipse 50% 50% at 80% 20%, rgba(176,68,255,0.07) 0%, transparent 60%);
+  }
+  .hero-grid {
+    position: absolute; inset: 0;
+    background-image: linear-gradient(rgba(0,245,255,0.04) 1px, transparent 1px),
+                      linear-gradient(90deg, rgba(0,245,255,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 80%);
+  }
+  .hero-tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px; letter-spacing: 0.2em;
+    color: var(--neon-cyan);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    animation: fadeUp 0.6s 0.3s both;
+  }
+  .hero-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(40px, 6vw, 80px);
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin-bottom: 10px;
+    animation: fadeUp 0.7s 0.4s both;
+  }
+  .hero-title .line-glow {
+    background: linear-gradient(90deg, var(--neon-pink), var(--neon-purple), var(--neon-cyan));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .hero-sub {
+    font-family: 'Space Mono', monospace;
+    font-size: 13px; color: var(--muted);
+    letter-spacing: 0.15em;
+    margin-bottom: 40px;
+    animation: fadeUp 0.7s 0.5s both;
+  }
+  .hero-btns {
+    display: flex; gap: 16px;
+    animation: fadeUp 0.7s 0.6s both;
+  }
+  .btn-primary {
+    font-family: 'Space Mono', monospace;
+    font-size: 12px; font-weight: 700; letter-spacing: 0.1em;
+    padding: 14px 32px;
+    background: linear-gradient(135deg, var(--neon-pink), var(--neon-purple));
+    border: none; border-radius: 4px;
+    color: white; cursor: pointer;
+    text-transform: uppercase;
+    transition: all 0.2s;
+    box-shadow: 0 0 20px rgba(255,45,120,0.3);
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 4px 30px rgba(255,45,120,0.5); }
+  .btn-secondary {
+    font-family: 'Space Mono', monospace;
+    font-size: 12px; font-weight: 700; letter-spacing: 0.1em;
+    padding: 13px 32px;
+    background: transparent;
+    border: 1.5px solid rgba(255,255,255,0.2);
+    border-radius: 4px;
+    color: var(--text); cursor: pointer;
+    text-transform: uppercase;
+    transition: all 0.2s;
+  }
+  .btn-secondary:hover { border-color: var(--text); }
+
+
+
+  /* LOGO STRIP */
+  .logo-strip {
+    padding: 28px 60px;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    overflow: hidden;
+    position: relative;
+    background: var(--surface);
+  }
+  .logo-track {
+    display: flex; gap: 60px; align-items: center;
+    animation: scroll 20s linear infinite;
+    width: max-content;
+  }
+  .logo-item {
+    font-family: 'Syne', sans-serif;
+    font-size: 13px; font-weight: 700;
+    color: var(--muted);
+    letter-spacing: 0.15em; text-transform: uppercase;
+    white-space: nowrap;
+    opacity: 0.5;
+    transition: opacity 0.2s;
+  }
+  .logo-item:hover { opacity: 1; }
+  .logo-dot { color: var(--neon-cyan); font-size: 8px; }
+  @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+  /* SECTIONS */
+  .section {
+    padding: 100px 60px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .section-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px; letter-spacing: 0.25em;
+    color: var(--neon-cyan);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+
+  /* FEATURE BLOCKS (like screenshots) */
+  .feature-block {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px; align-items: center;
+    margin-bottom: 80px;
+    opacity: 1;
+    transform: translateY(0);
+    transition: all 0.6s ease;
+  }
+  .feature-block.hidden { opacity: 0; transform: translateY(30px); }
+  .feature-block.visible { opacity: 1; transform: translateY(0); }
+  .feature-block.reverse { direction: rtl; }
+  .feature-block.reverse > * { direction: ltr; }
+  .feature-text {}
+  .feature-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(22px, 2.5vw, 32px);
+    font-weight: 800; letter-spacing: -0.01em;
+    margin-bottom: 16px;
+    color: var(--text);
+    text-transform: uppercase;
+  }
+  .feature-desc {
+    font-size: 15px; line-height: 1.7;
+    color: var(--muted);
+    margin-bottom: 28px;
+    max-width: 400px;
+  }
+  .feature-btn {
+    display: inline-block;
+    font-family: 'Space Mono', monospace;
+    font-size: 11px; font-weight: 700; letter-spacing: 0.1em;
+    padding: 12px 28px;
+    background: var(--text);
+    color: var(--bg);
+    border: none; border-radius: 4px;
+    cursor: pointer; text-transform: uppercase;
+    transition: all 0.2s;
+  }
+  .feature-btn:hover {
+    background: var(--neon-cyan);
+    box-shadow: var(--glow-cyan);
+    color: var(--bg);
+  }
+  .feature-btn.outline {
+    background: transparent;
+    border: 1.5px solid var(--text);
+    color: var(--text);
+  }
+  .feature-btn.outline:hover {
+    background: var(--text); color: var(--bg);
+  }
+
+  /* Image placeholders */
+  .img-block {
+    border-radius: 12px;
+    aspect-ratio: 4/3;
+    position: relative; overflow: hidden;
+    cursor: pointer;
+  }
+  .img-block::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 300' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.25'/%3E%3C/svg%3E");
+    z-index: 1;
+  }
+  .img-block .img-label {
+    position: absolute; bottom: 16px; left: 16px;
+    font-family: 'Space Mono', monospace;
+    font-size: 10px; color: rgba(255,255,255,0.5);
+    letter-spacing: 0.1em; z-index: 2;
+  }
+  .img-upload-hint {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    z-index: 3;
+    background: rgba(0,0,0,0.2);
+    opacity: 0; transition: opacity 0.2s;
+  }
+  .img-block:hover .img-upload-hint { opacity: 1; }
+  .img-upload-hint span {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px; color: white;
+    letter-spacing: 0.1em;
+  }
+
+  /* Real image support */
+  .img-block img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    transform: scale(1.03);
+    filter: saturate(1.05) contrast(1.05);
+  }
+  .img-block.photo {
+    background: rgba(0,0,0,0.18);
+    border: 1px solid rgba(255,255,255,0.12);
+    box-shadow: 0 0 0 1px rgba(0,245,255,0.10), 0 18px 60px rgba(0,0,0,0.45);
+  }
+
+  .img-pink { background: linear-gradient(135deg, #ffd6e7 0%, #ff6fa8 40%, #c9b1ff 100%); }
+  .img-green { background: linear-gradient(135deg, #b2f0e8 0%, #5dd5c8 40%, #a8e6cf 100%); }
+  .img-purple { background: linear-gradient(135deg, #e8d5f5 0%, #c77dff 50%, #9b5de5 100%); }
+  .img-warm { background: linear-gradient(135deg, #ffe0b2 0%, #ff8a65 40%, #ff5722 100%); }
+
+  /* ICON BOARDS (replace image blocks) */
+  .icon-board {
+    border-radius: 12px;
+    aspect-ratio: 4/3;
+    border: 1px solid rgba(255,255,255,0.14);
+    background: rgba(13,13,31,0.58);
+    position: relative;
+    overflow: hidden;
+    padding: 18px;
+  }
+  .icon-board::before {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(520px 260px at 18% 18%, rgba(255,45,120,0.18), transparent 62%),
+      radial-gradient(520px 260px at 86% 86%, rgba(0,245,255,0.12), transparent 62%),
+      radial-gradient(520px 260px at 72% 22%, rgba(176,68,255,0.12), transparent 62%);
+    pointer-events: none;
+    opacity: 0.95;
+  }
+  .icon-grid {
+    position: relative;
+    z-index: 1;
+    height: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+  }
+  .icon-tile {
+    border-radius: 14px;
+    border: 1px solid rgba(255,255,255,0.12);
+    background: rgba(0,0,0,0.16);
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  .icon-badge {
+    width: 44px;
+    height: 44px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, rgba(255,45,120,0.28), rgba(176,68,255,0.18), rgba(0,245,255,0.16));
+    box-shadow: 0 0 0 4px rgba(255,45,120,0.08);
+    border: 1px solid rgba(255,255,255,0.12);
+  }
+  .icon-badge svg {
+    width: 26px;
+    height: 26px;
+    stroke: rgba(0,245,255,0.9);
+    stroke-width: 1.9;
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .icon-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.74);
+    line-height: 1.4;
+  }
+
+  /* THREE COLS */
+  .three-cols {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+    padding: 60px 0;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .col-card {}
+  .col-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 16px; font-weight: 700;
+    margin-bottom: 12px; color: var(--text);
+  }
+  .col-text {
+    font-size: 14px; line-height: 1.7;
+    color: var(--muted);
+  }
+  .col-num {
+    font-family: 'Space Mono', monospace;
+    font-size: 36px; font-weight: 700;
+    color: var(--neon-cyan);
+    margin-bottom: 8px;
+  }
+
+  /* GALLERY GRID */
+  .gallery-section { padding: 100px 60px; }
+  .gallery-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(28px, 3vw, 48px);
+    font-weight: 800; letter-spacing: -0.02em;
+    text-align: center; margin-bottom: 60px;
+    text-transform: uppercase;
+  }
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: auto;
+    gap: 20px;
+  }
+  .gallery-item {
+    border-radius: 10px; overflow: hidden;
+    cursor: pointer; position: relative;
+    transition: transform 0.3s;
+  }
+  .gallery-item:hover { transform: scale(1.02); }
+  .gallery-item:nth-child(1) { grid-row: span 2; }
+  .gallery-item .gi-bg {
+    width: 100%; height: 100%; min-height: 200px;
+    position: relative;
+  }
+  .gi-overlay {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column;
+    justify-content: flex-end;
+    padding: 20px;
+    background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 60%);
+    opacity: 0; transition: opacity 0.3s;
+  }
+  .gallery-item:hover .gi-overlay { opacity: 1; }
+  .gi-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 14px; font-weight: 700;
+    color: white; margin-bottom: 4px;
+  }
+  .gi-meta {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px; color: rgba(255,255,255,0.6);
+    letter-spacing: 0.08em;
+  }
+
+  /* EDIT MODAL */
+  /* NOTE: Fitur edit sudah dihapus sesuai permintaan */
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 60px;
+    background: var(--surface);
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 40px;
+  }
+  .footer-brand {}
+  .footer-logo {
+    font-family: 'Syne', sans-serif;
+    font-size: 18px; font-weight: 800;
+    color: var(--text);
+    margin-bottom: 12px;
+  }
+  .footer-tagline {
+    font-size: 13px; color: var(--muted);
+    line-height: 1.6; max-width: 200px;
+  }
+  .footer-col h4 {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px; letter-spacing: 0.2em;
+    color: var(--neon-cyan); text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .footer-col a {
+    display: block;
+    font-size: 13px; color: var(--muted);
+    text-decoration: none; margin-bottom: 8px;
+    transition: color 0.2s;
+  }
+  .footer-col a:hover { color: var(--text); }
+  .footer-bottom {
+    padding: 24px 60px;
+    border-top: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+    background: var(--surface);
+  }
+  .footer-copy {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px; color: var(--muted);
+    letter-spacing: 0.08em;
+  }
+  .social-links { display: flex; gap: 16px; }
+  .social-links a {
+    width: 32px; height: 32px;
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--muted); text-decoration: none;
+    font-size: 13px;
+    transition: all 0.2s;
+  }
+  .social-links a:hover {
+    border-color: var(--neon-cyan);
+    color: var(--neon-cyan);
+    box-shadow: var(--glow-cyan);
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Scanline effect on hero */
+  .hero::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0,0,0,0.03) 2px,
+      rgba(0,0,0,0.03) 4px
+    );
+    pointer-events: none;
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">PORTOFOLIO.DEV</div>
+  <div class="nav-links">
+    <a href="#profile" class="active">Profile</a>
+    <a href="#matakuliah">Mata Kuliah</a>
+    <a href="#materi">Materi dan Tugas</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-tag">✦ Portofolio Individu</div>
+  <h1 class="hero-title">
+    <span>LEIGIAVNY CANTARA<br></span>
+    <span class="line-glow">ASHARI</span>
+  </h1>
+  <p class="hero-sub">2400101045 — Etika Budaya</p>
+  <div class="hero-btns">
+    <button class="btn-primary" onclick="window.open('https://ekspetasivsrealita.carrd.co/','_blank')">Web Blog Utama</button>
+    <button class="btn-secondary" onclick="window.open('tugas-kelompok.html','_blank')">Tugas Kelompok →</button>
+  </div>
+
+</section>
+
+<!-- LOGO STRIP -->
+<div class="logo-strip">
+  <div class="logo-track" id="logoTrack">
+    <span class="logo-item">Etika Budaya</span>
+    <span class="logo-dot">◆</span>
+    <span class="logo-item">Filsafat</span>
+    <span class="logo-dot">◆</span>
+    <span class="logo-item">Sosiologi</span>
+    <span class="logo-dot">◆</span>
+    <span class="logo-item">Antropologi</span>
+    <span class="logo-dot">◆</span>
+    <span class="logo-item">Humaniora</span>
+    <span class="logo-dot">◆</span>
+    <span class="logo-item">Budaya Lokal</span>
+    <span class="logo-dot">◆</span>
+    <span class="logo-item">Nilai Sosial</span>
+    <span class="logo-dot">◆</span>
+    <span class="logo-item">Etika Budaya</span>
+    <span class="logo-dot">◆</span>
+    <span class="logo-item">Filsafat</span>
+    <span class="logo-dot">◆</span>
+    <span class="logo-item">Sosiologi</span>
+    <span class="logo-dot">◆</span>
+    <span class="logo-item">Antropologi</span>
+    <span class="logo-dot">◆</span>
+    <span class="logo-item">Humaniora</span>
+    <span class="logo-dot">◆</span>
+    <span class="logo-item">Budaya Lokal</span>
+    <span class="logo-dot">◆</span>
+    <span class="logo-item">Nilai Sosial</span>
+  </div>
+</div>
+
+<!-- PROFILE SECTION -->
+<div id="profile" class="section" style="max-width:1200px;margin:0 auto">
+  <div class="section-label">// 01 — Profil</div>
+
+  <div class="feature-block" id="fb1">
+    <div class="feature-text">
+      <h2 class="feature-title">Profile Penulis</h2>
+      <p class="feature-desc">Halo! Aku adalah mahasiswi di Pradita University yang sedang menempuh pendidikan di jurusan Culinary Arts. Selain punya ketertarikan besar di dunia kuliner, saat ini aku juga sedang mempelajari mata kuliah Etika Budaya yang membuka banyak perspektif baru tentang kehidupan sosial dan budaya di sekitar kita.</p>
+      <button class="feature-btn" onclick="window.open('profil-penulis.html','_blank')">Get to know the writer</button>
+    </div>
+    <div class="img-block photo" aria-label="Foto profil">
+      <img src="profile.jpg" alt="Foto Leigiavny Cantara Ashari">
+      <div class="img-label">PROFILE.JPG</div>
+    </div>
+  </div>
+
+  <div class="section-label" style="margin-top:60px">// 02 — Materi & Pembahasan</div>
+
+  <div class="feature-block reverse" id="fb2">
+    <div class="icon-board" aria-label="Ikon materi mata kuliah">
+      <div class="icon-grid">
+        <div class="icon-tile">
+          <div class="icon-badge" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M4 19.5c1.2-1 2.6-1.5 4.2-1.5H20"/><path d="M4 4.5c1.2-1 2.6-1.5 4.2-1.5H20v18"/><path d="M8 3v14.8"/></svg>
+          </div>
+          <div class="icon-label">Norma & Nilai</div>
+        </div>
+        <div class="icon-tile">
+          <div class="icon-badge" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M12 2l1.6 5.1L19 9l-5.4 1.9L12 16l-1.6-5.1L5 9l5.4-1.9L12 2z"/><path d="M4 20h16"/></svg>
+          </div>
+          <div class="icon-label">Moral & Konteks</div>
+        </div>
+        <div class="icon-tile">
+          <div class="icon-badge" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M7 10v9"/><path d="M17 10v9"/><path d="M5 10h14"/><path d="M6 10l1-6h10l1 6"/><path d="M9 19c0-2 6-2 6 0"/></svg>
+          </div>
+          <div class="icon-label">Budaya Makan</div>
+        </div>
+        <div class="icon-tile">
+          <div class="icon-badge" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M12 20V10"/><path d="M12 10l4-4"/><path d="M12 10L8 6"/><path d="M4 20h16"/></svg>
+          </div>
+          <div class="icon-label">Refleksi & Makna</div>
+        </div>
+      </div>
+    </div>
+    <div class="feature-text">
+      <h2 class="feature-title">Tentang Mata Kuliah</h2>
+      <p class="feature-desc">Menjelajahi lebih dalam tentang mata kuliah etika budaya — memahami bagaimana nilai-nilai lokal membentuk perilaku dan identitas masyarakat.</p>
+      <button class="feature-btn outline" onclick="window.open('tentang-matakuliah.html','_blank')">Learn about etika budaya</button>
+    </div>
+  </div>
+</div>
+
+<!-- MATERI SECTION -->
+<div id="materi" class="section" style="max-width:1200px;margin:0 auto">
+
+  <div class="feature-block" id="fb3">
+    <div class="feature-text">
+      <h2 class="feature-title">Pembahasan Materi</h2>
+      <p class="feature-desc">Uraian mendalam seputar topik-topik yang dibahas dalam blog ini — mulai dari konsep dasar etika, norma budaya, hingga implementasinya dalam kehidupan sehari-hari.</p>
+      <button class="feature-btn" onclick="window.open('pembahasan-materi.html','_blank')">Lihat Materi Lengkap</button>
+    </div>
+    <div class="icon-board" aria-label="Ikon pembahasan materi">
+      <div class="icon-grid">
+        <div class="icon-tile">
+          <div class="icon-badge" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M3 12h18"/><path d="M12 3v18"/><path d="M7 7l10 10"/><path d="M17 7L7 17"/></svg>
+          </div>
+          <div class="icon-label">Fakta</div>
+        </div>
+        <div class="icon-tile">
+          <div class="icon-badge" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M21 12c-2.5 4.5-6 7-9 7s-6.5-2.5-9-7c2.5-4.5 6-7 9-7s6.5 2.5 9 7z"/><path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg>
+          </div>
+          <div class="icon-label">Ekspektasi</div>
+        </div>
+        <div class="icon-tile">
+          <div class="icon-badge" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M7 11l3 3L17 7"/><path d="M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0z"/></svg>
+          </div>
+          <div class="icon-label">Kepercayaan</div>
+        </div>
+        <div class="icon-tile">
+          <div class="icon-badge" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M4 19V5"/><path d="M20 19V5"/><path d="M4 12h16"/><path d="M8 9h3"/><path d="M8 15h6"/></svg>
+          </div>
+          <div class="icon-label">Analisis Etis</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div><!-- end #materi section -->
+
+
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">
+    <div class="footer-logo">PORTOFOLIO<br>INDIVIDU</div>
+    <p class="footer-tagline">Dokumentasi perjalanan akademik dalam mata kuliah Etika Budaya.</p>
+  </div>
+  <div class="footer-col">
+    <h4>Navigasi</h4>
+    <a href="#profile">Profile Penulis</a>
+    <a href="#materi">Pembahasan Materi</a>
+  </div>
+  <div class="footer-col">
+    <h4>Konten</h4>
+    <a href="https://ekspetasivsrealita.carrd.co/" target="_blank" rel="noopener noreferrer">Blog Utama</a>
+    <a href="tugas-kelompok.html" target="_blank" rel="noopener noreferrer">Tugas Kelompok</a>
+  </div>
+</footer>
+<div class="footer-bottom">
+  <span class="footer-copy">© 2026 Leigiavny Cantara Ashari — 2400101045</span>
+  <div class="social-links">
+    <a href="#" title="Instagram">IG</a>
+    <a href="#" title="Twitter">X</a>
+    <a href="#" title="LinkedIn">in</a>
+  </div>
+</div>
+
+
+<script>
+  // Cursor
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  document.addEventListener('mousemove', e => {
+    cursor.style.left = e.clientX + 'px';
+    cursor.style.top = e.clientY + 'px';
+    setTimeout(() => {
+      ring.style.left = e.clientX + 'px';
+      ring.style.top = e.clientY + 'px';
+    }, 80);
+  });
+  document.querySelectorAll('button, a').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      cursor.style.width = '6px'; cursor.style.height = '6px';
+      ring.style.width = '50px'; ring.style.height = '50px';
+      ring.style.borderColor = 'rgba(255,45,120,0.6)';
+    });
+    el.addEventListener('mouseleave', () => {
+      cursor.style.width = '12px'; cursor.style.height = '12px';
+      ring.style.width = '36px'; ring.style.height = '36px';
+      ring.style.borderColor = 'rgba(0,245,255,0.5)';
+    });
+  });
+
+  // Scroll reveal — semua feature block langsung visible (opacity:1 by default)
+  // Observer tetap ada untuk animasi smooth saat scroll
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.remove('hidden');
+        e.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.10 });
+  document.querySelectorAll('.feature-block').forEach(el => obs.observe(el));
+</script>
+</body>

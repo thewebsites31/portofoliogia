@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pembahasan Materi — Etika Budaya</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #050510;
+      --surface: #0d0d1f;
+      --card: rgba(17, 17, 40, 0.78);
+      --neon-pink: #ff2d78;
+      --neon-cyan: #00f5ff;
+      --neon-purple: #b044ff;
+      --text: #e8e8f0;
+      --muted: #7070a0;
+      --border: rgba(0,245,255,0.12);
+      --radius: 18px;
+      --shadow: 0 22px 70px rgba(0,0,0,0.55);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background:
+        radial-gradient(1000px 520px at 18% 10%, rgba(255,45,120,0.18), transparent 60%),
+        radial-gradient(900px 560px at 84% 22%, rgba(176,68,255,0.16), transparent 60%),
+        radial-gradient(900px 600px at 60% 90%, rgba(0,245,255,0.10), transparent 65%),
+        var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    /* Noise overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.035'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.65;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    /* NAV */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 60px;
+      border-bottom: 1px solid var(--border);
+      background: rgba(5,5,16,0.84);
+      backdrop-filter: blur(18px);
+    }
+    .nav-left { display: flex; gap: 12px; align-items: center; }
+    .badge {
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(0,245,255,0.9);
+      padding: 10px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(0,245,255,0.22);
+      background: rgba(0,245,255,0.06);
+      white-space: nowrap;
+    }
+    .nav-title {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: -0.01em;
+      font-size: 14px;
+      color: rgba(255,255,255,0.86);
+    }
+    .nav-links { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; justify-content: flex-end; }
+    .nav-links a {
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.70);
+      padding: 10px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(0,0,0,0.18);
+      transition: all 0.18s ease;
+    }
+    .nav-links a:hover {
+      border-color: rgba(255,45,120,0.60);
+      box-shadow: 0 0 0 4px rgba(255,45,120,0.10);
+      transform: translateY(-1px);
+      color: var(--text);
+    }
+
+    /* HERO */
+    header {
+      position: relative;
+      z-index: 1;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 64px 60px 26px;
+    }
+    .kicker {
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: rgba(0,245,255,0.85);
+      margin-bottom: 16px;
+    }
+    h1 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: -0.02em;
+      font-size: clamp(34px, 4.8vw, 62px);
+      line-height: 1.06;
+      margin-bottom: 14px;
+    }
+    .glow {
+      background: linear-gradient(90deg, var(--neon-pink), var(--neon-purple), var(--neon-cyan));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .sub {
+      color: var(--muted);
+      line-height: 1.75;
+      font-size: 15px;
+      max-width: 84ch;
+    }
+
+    /* LAYOUT */
+    .wrap {
+      position: relative;
+      z-index: 1;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 18px 60px 80px;
+      display: grid;
+      grid-template-columns: 300px 1fr;
+      gap: 18px;
+      align-items: start;
+    }
+    .toc {
+      position: sticky;
+      top: 92px;
+      border-radius: var(--radius);
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(13,13,31,0.62);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+    .toc-head {
+      padding: 18px 18px 14px;
+      border-bottom: 1px solid rgba(255,255,255,0.10);
+      background: linear-gradient(135deg, rgba(255,45,120,0.10), rgba(0,245,255,0.06));
+    }
+    .toc-head .t1 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: -0.01em;
+      font-size: 16px;
+      margin-bottom: 6px;
+    }
+    .toc-head .t2 {
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.60);
+    }
+    .toc-links { padding: 14px; display: grid; gap: 10px; }
+    .toc-links a {
+      display: block;
+      padding: 12px 12px 12px 14px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.10);
+      background: rgba(0,0,0,0.14);
+      color: rgba(255,255,255,0.78);
+      transition: all 0.18s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .toc-links a::before {
+      content: '';
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      width: 10px;
+      height: 10px;
+      border-radius: 4px;
+      transform: translateY(-50%);
+      background: linear-gradient(135deg, rgba(255,45,120,0.9), rgba(0,245,255,0.85));
+      box-shadow: 0 0 22px rgba(255,45,120,0.25);
+    }
+    .toc-links a span { padding-left: 20px; display: block; font-size: 13px; line-height: 1.4; }
+    .toc-links a:hover {
+      transform: translateY(-1px);
+      border-color: rgba(0,245,255,0.35);
+      box-shadow: 0 0 0 4px rgba(0,245,255,0.08);
+      color: var(--text);
+    }
+
+    .content { display: grid; gap: 18px; }
+    .card {
+      border-radius: var(--radius);
+      border: 1px solid rgba(255,255,255,0.14);
+      background: var(--card);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      position: relative;
+    }
+    .card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(520px 240px at 15% 0%, rgba(255,45,120,0.14), transparent 58%),
+        radial-gradient(520px 240px at 85% 100%, rgba(0,245,255,0.10), transparent 62%);
+      opacity: 0.9;
+      pointer-events: none;
+    }
+    .inner { position: relative; padding: 26px 26px 24px; }
+    .title-row {
+      display: flex;
+      gap: 12px;
+      align-items: baseline;
+      flex-wrap: wrap;
+      margin-bottom: 10px;
+    }
+    .num {
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      padding: 9px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(0,245,255,0.22);
+      background: rgba(0,245,255,0.06);
+      color: rgba(0,245,255,0.88);
+      white-space: nowrap;
+    }
+    h2 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: -0.01em;
+      font-size: 22px;
+    }
+    p { color: rgba(255,255,255,0.78); line-height: 1.9; font-size: 14px; }
+    p + p { margin-top: 12px; }
+
+    /* Lists */
+    ul { list-style: none; display: grid; gap: 12px; margin-top: 12px; }
+    li {
+      position: relative;
+      padding: 12px 14px 12px 44px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.10);
+      background: rgba(0,0,0,0.14);
+      color: rgba(255,255,255,0.78);
+      line-height: 1.75;
+      font-size: 14px;
+    }
+    li::before {
+      content: '';
+      position: absolute;
+      left: 14px;
+      top: 16px;
+      width: 18px;
+      height: 18px;
+      border-radius: 6px;
+      background: linear-gradient(135deg, rgba(255,45,120,0.9), rgba(0,245,255,0.85));
+      box-shadow: 0 0 26px rgba(255,45,120,0.25);
+    }
+    strong { color: rgba(255,255,255,0.92); font-weight: 700; }
+
+    .example {
+      margin-top: 12px;
+      border-radius: 16px;
+      border: 1px dashed rgba(255,255,255,0.22);
+      background: rgba(0,0,0,0.18);
+      padding: 16px;
+      display: grid;
+      gap: 10px;
+    }
+    .ex-head {
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(0,245,255,0.85);
+    }
+    .ex-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    .ex-box {
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.10);
+      background: rgba(0,0,0,0.14);
+      padding: 12px 14px;
+    }
+    .ex-k {
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.55);
+      margin-bottom: 6px;
+    }
+    .ex-v { color: rgba(255,255,255,0.80); line-height: 1.75; font-size: 13px; }
+
+    footer {
+      position: relative;
+      z-index: 1;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 18px 60px 42px;
+      border-top: 1px solid rgba(255,255,255,0.10);
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      flex-wrap: wrap;
+      color: rgba(255,255,255,0.55);
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+    }
+
+    @media (max-width: 1020px) {
+      nav { padding: 16px 20px; }
+      header { padding: 54px 20px 22px; }
+      .wrap { padding: 14px 20px 70px; grid-template-columns: 1fr; }
+      .toc { position: relative; top: auto; }
+      .ex-grid { grid-template-columns: 1fr; }
+      footer { padding: 18px 20px 42px; }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="nav-left">
+      <div class="badge">// Pembahasan</div>
+      <div class="nav-title">Materi: Ekspektasi vs Realita (Pizza Online)</div>
+    </div>
+    <div class="nav-links">
+      <a href="portofolio-individu.html" target="_blank" rel="noopener noreferrer">Kembali</a>
+      <a href="#s1">Ringkasan</a>
+      <a href="#s2">Etika Bisnis</a>
+      <a href="#s5">Kepercayaan</a>
+    </div>
+  </nav>
+
+  <header>
+    <div class="kicker">✦ Pembahasan Materi</div>
+    <h1>Fakta, Ekspektasi, dan <span class="glow">Tanggung Jawab Etis</span></h1>
+    <p class="sub">
+      Jika dilihat dari sudut pandang etika budaya, penelitian tentang cara mengukur kepuasan pelanggan saat membeli pizza melalui internet
+      berfokus pada nilai moral dan tanggung jawab etis bisnis digital—bukan hanya pada pemasaran atau kepuasan pelanggan.
+    </p>
+  </header>
+
+  <main class="wrap">
+    <aside class="toc" aria-label="Daftar isi pembahasan">
+      <div class="toc-head">
+        <div class="t1">Navigasi Cepat</div>
+        <div class="t2">Klik untuk lompat ke bagian</div>
+      </div>
+      <div class="toc-links">
+        <a href="#s1"><span>Pengantar: Fokus Etika Budaya</span></a>
+        <a href="#s2"><span>1) Etika Bisnis sebagai Fondasi Moral</span></a>
+        <a href="#s3"><span>2) Deontologi: Moral Berdasarkan Kewajiban</span></a>
+        <a href="#s4"><span>3) Utilitarianisme: Dampak untuk Banyak Pihak</span></a>
+        <a href="#s4b"><span>4) Kejujuran sebagai Nilai Budaya Digital</span></a>
+        <a href="#s5"><span>5) Ekspektasi, Kepercayaan, dan Loyalitas</span></a>
+      </div>
+    </aside>
+
+    <section class="content">
+      <article class="card" id="s1">
+        <div class="inner">
+          <div class="title-row">
+            <div class="num">SECTION 00</div>
+            <h2>Pengantar: Fokus Etika Budaya</h2>
+          </div>
+          <p>
+            Dalam sudut pandang etika klasik, inti persoalan bukan pada produk pizza sebagai objek penelitian, tetapi pada hubungan moral antara
+            produsen dan konsumen. Ketika sebuah perusahaan menggunakan platform digital untuk menjual barangnya, harapan konsumen dipengaruhi oleh foto
+            dan deskripsi produk, estimasi waktu pengiriman, kualitas layanan, dan janji-janji implisit lainnya.
+          </p>
+          <p>
+            Pelaku bisnis tidak hanya melakukan transaksi keuangan tetapi juga menjalin hubungan yang dapat diandalkan. Dari sudut pandang etika budaya,
+            penting untuk mempertimbangkan tindakan bisnis bukan hanya keuntungan moneter. Pertanyaan etis utama muncul: apakah pelaku usaha telah memenuhi
+            tanggung jawab moralnya dengan benar? Apakah informasi yang diberikan kepada pelanggan akurat? Apakah pelanggan hanya dilihat sebagai uang atau
+            orang yang berharga?
+          </p>
+          <p>
+            Masalah etika muncul ketika ada perbedaan antara fakta dan harapan pelanggan.
+          </p>
+        </div>
+      </article>
+
+      <article class="card" id="s2">
+        <div class="inner">
+          <div class="title-row">
+            <div class="num">SECTION 01</div>
+            <h2>Etika Bisnis sebagai Fondasi Moral dalam Aktivitas Ekonomi</h2>
+          </div>
+          <p>
+            Dalam pemahaman umum, bisnis sering dipandang sebagai kegiatan memperoleh keuntungan melalui penjualan barang atau jasa. Namun dalam kajian etika,
+            bisnis memiliki dimensi yang lebih luas: aktivitas sosial yang melibatkan manusia, kepercayaan, hak, kewajiban, serta konsekuensi terhadap pihak lain.
+          </p>
+          <p>
+            Secara etis, keberhasilan bisnis tidak hanya diukur berdasarkan peningkatan penjualan atau jumlah pelanggan. Sebuah bisnis juga harus diukur dari tingkat
+            tanggung jawabnya terhadap konsumen.
+          </p>
+          <p>Dalam penelitian ini terlihat bahwa konsumen membangun ekspektasi tertentu sebelum melakukan pembelian. Ekspektasi tersebut terbentuk karena beberapa faktor:</p>
+          <ul>
+            <li>Gambar produk</li>
+            <li>Promosi</li>
+            <li>Harga</li>
+            <li>Estimasi waktu</li>
+            <li>Ulasan pelanggan</li>
+            <li>Deskripsi produk</li>
+          </ul>
+          <p>
+            Semua unsur tersebut secara tidak langsung membentuk “janji” kepada konsumen. Masalah mulai muncul ketika janji tersebut tidak sesuai dengan kenyataan.
+          </p>
+
+          <div class="example">
+            <div class="ex-head">Contoh: Ekspektasi vs Realita</div>
+            <div class="ex-grid">
+              <div class="ex-box">
+                <div class="ex-k">Ekspektasi</div>
+                <div class="ex-v">Pizza panas, keju meleleh, bentuk rapi, datang dalam 20 menit.</div>
+              </div>
+              <div class="ex-box">
+                <div class="ex-k">Realita</div>
+                <div class="ex-v">Pizza dingin, bentuk berantakan, saus menempel pada kardus, datang terlambat.</div>
+              </div>
+            </div>
+          </div>
+
+          <p>
+            Dalam sudut pandang ekonomi biasa, hal ini mungkin dianggap kesalahan teknis. Namun dalam sudut pandang etika, ini merupakan kegagalan memenuhi kewajiban moral.
+            Karena pada dasarnya konsumen membeli berdasarkan <strong>kepercayaan</strong>. Ketika kepercayaan rusak, masalahnya bukan lagi sekadar rasa makanan, tetapi pelanggaran
+            terhadap hubungan moral antara penjual dan pelanggan.
+          </p>
+        </div>
+      </article>
+
+      <article class="card" id="s3">
+        <div class="inner">
+          <div class="title-row">
+            <div class="num">SECTION 02</div>
+            <h2>Pendekatan Deontologi: Moral Berdasarkan Kewajiban</h2>
+          </div>
+          <p>
+            Teori etika yang sangat relevan dengan laporan ini adalah teori deontologi dari Immanuel Kant. Prinsip dasarnya: tindakan dianggap benar karena sesuai dengan
+            kewajiban moral, bukan karena hasil akhirnya. Artinya, seseorang harus melakukan sesuatu yang benar meskipun mungkin tidak menghasilkan keuntungan terbesar.
+          </p>
+          <p>Dalam konteks penelitian ini, kewajiban moral pelaku usaha meliputi:</p>
+          <ul>
+            <li>Memberikan informasi jujur</li>
+            <li>Menampilkan gambar yang sesuai</li>
+            <li>Menyampaikan estimasi realistis</li>
+            <li>Menjaga kualitas produk</li>
+            <li>Memenuhi janji pelayanan</li>
+          </ul>
+          <p>
+            Menurut deontologi, pelaku usaha tidak boleh melebih-lebihkan produk hanya untuk meningkatkan pembelian. Misalnya, restoran menggunakan foto pizza hasil pemotretan
+            profesional dengan tambahan efek visual sehingga produk terlihat jauh lebih menarik dibanding kondisi nyata. Secara pemasaran hal itu mungkin efektif, namun secara
+            etika terdapat masalah.
+          </p>
+          <p>
+            Karena konsumen mengambil keputusan berdasarkan informasi tersebut. Ketika informasi tidak sesuai kenyataan, konsumen kehilangan hak untuk membuat keputusan yang objektif.
+            Dalam pemikiran Kant, tindakan seperti ini memperlakukan manusia hanya sebagai alat mencapai keuntungan, padahal manusia seharusnya diperlakukan sebagai tujuan yang memiliki
+            martabat dan hak. Karena itu, kejujuran bukan sekadar strategi pemasaran, tetapi <strong>kewajiban moral</strong>.
+          </p>
+        </div>
+      </article>
+
+      <article class="card" id="s4">
+        <div class="inner">
+          <div class="title-row">
+            <div class="num">SECTION 03</div>
+            <h2>Utilitarianisme: Menilai Tindakan Berdasarkan Dampaknya</h2>
+          </div>
+          <p>
+            Selain deontologi, penelitian ini juga dapat dipahami menggunakan teori utilitarianisme (Jeremy Bentham & John Stuart Mill). Prinsip dasarnya: suatu tindakan baik apabila
+            menghasilkan manfaat terbesar bagi sebanyak mungkin orang.
+          </p>
+          <p>Dari sudut pandang ini, perusahaan harus mempertimbangkan dampak tindakannya terhadap seluruh pihak:</p>
+          <ul>
+            <li>Pelanggan</li>
+            <li>Restoran</li>
+            <li>Kurir</li>
+            <li>Platform digital</li>
+            <li>Masyarakat</li>
+          </ul>
+          <p>
+            Misalnya, perusahaan mungkin tergoda mempercepat proses pengiriman dengan mengurangi kualitas pengemasan agar biaya lebih murah. Dalam jangka pendek keuntungan naik.
+            Namun jangka panjang, produk mudah rusak, pelanggan kecewa, ulasan negatif muncul, reputasi menurun—dan manfaat keseluruhan justru menurun.
+          </p>
+          <p>
+            Artinya keputusan yang tampak menguntungkan secara ekonomi belum tentu baik secara etis. Etika utilitarian mengajarkan bahwa keputusan bisnis seharusnya mempertimbangkan
+            kesejahteraan kolektif, bukan keuntungan sepihak.
+          </p>
+        </div>
+      </article>
+
+      <article class="card" id="s4b">
+        <div class="inner">
+          <div class="title-row">
+            <div class="num">SECTION 04</div>
+            <h2>Kejujuran sebagai Nilai Budaya (Era Digital)</h2>
+          </div>
+          <p>
+            Dalam masyarakat modern, terutama budaya digital, informasi visual memiliki pengaruh sangat besar. Sebelum membeli makanan secara online, konsumen tidak dapat mencium aroma,
+            melihat langsung, atau menyentuh produk. Mereka hanya memiliki: foto, deskripsi, rating, dan ulasan.
+          </p>
+          <p>
+            Akibatnya foto produk berubah fungsi: foto bukan lagi sekadar gambar—foto menjadi representasi realitas. Secara etis, ketika perusahaan mengunggah gambar produk, sebenarnya
+            perusahaan sedang membuat “janji tidak tertulis”: <strong>“Inilah produk yang akan kamu terima.”</strong>
+          </p>
+          <p>
+            Ketika realita berbeda jauh, konsumen merasa mengalami pengkhianatan ekspektasi. Rasa kecewa menjadi lebih besar dibanding sekadar rasa makanan yang kurang enak, karena manusia
+            bukan hanya menilai produk secara rasional—mereka menilai berdasarkan rasa percaya.
+          </p>
+        </div>
+      </article>
+
+      <article class="card" id="s5">
+        <div class="inner">
+          <div class="title-row">
+            <div class="num">SECTION 05</div>
+            <h2>Ekspektasi, Kepercayaan, dan Loyalitas</h2>
+          </div>
+          <p>
+            Dari perspektif etika, loyalitas pelanggan merupakan hasil dari akumulasi kepercayaan.
+          </p>
+          <ul>
+            <li><strong>Informasi jujur</strong> → pengalaman sesuai → kepercayaan tumbuh → loyalitas meningkat</li>
+            <li>Janji berlebihan → realita mengecewakan → kepercayaan turun → pelanggan pergi</li>
+          </ul>
+          <p>
+            Inilah mengapa penelitian menemukan sebagian konsumen memilih berhenti membeli, komplain, atau memberi ulasan negatif. Reaksi tersebut bukan semata-mata akibat pizza terlambat.
+            Secara psikologis dan etis, konsumen merasa kontrak kepercayaan telah dilanggar.
+          </p>
+          <p>
+            Karena pada dasarnya transaksi digital bukan pertukaran uang dengan produk. Transaksi digital adalah pertukaran uang dengan <strong>janji</strong>. Dan ketika janji gagal dipenuhi,
+            yang rusak bukan hanya transaksi sesaat, tetapi hubungan jangka panjang antara bisnis dan konsumen.
+          </p>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <footer>
+    <div>© 2026 Leigiavny Cantara Ashari — 2400101045</div>
+    <div><a href="portofolio-individu.html" target="_blank" rel="noopener noreferrer" style="text-decoration: underline;">Kembali ke Portofolio</a></div>
+  </footer>
+</body>
+</html>

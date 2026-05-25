@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Profil Penulis — Leigiavny Cantara Ashari</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#050510;
+      --surface:rgba(13,13,31,0.72);
+      --card:rgba(17,17,40,0.78);
+      --text:#e8e8f0;
+      --muted:#7070a0;
+      --neon-pink:#ff2d78;
+      --neon-cyan:#00f5ff;
+      --neon-purple:#b044ff;
+      --border:rgba(0,245,255,0.14);
+      --radius:18px;
+      --shadow:0 26px 90px rgba(0,0,0,0.58);
+    }
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{
+      font-family:'DM Sans',sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(900px 520px at 16% 12%, rgba(255,45,120,0.20), transparent 60%),
+        radial-gradient(900px 560px at 84% 18%, rgba(176,68,255,0.18), transparent 62%),
+        radial-gradient(900px 600px at 60% 92%, rgba(0,245,255,0.12), transparent 66%),
+        var(--bg);
+      overflow-x:hidden;
+    }
+    body::before{
+      content:'';
+      position:fixed;
+      inset:0;
+      background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.035'/%3E%3C/svg%3E");
+      pointer-events:none;
+      z-index:0;
+      opacity:0.65;
+    }
+    a{color:inherit;text-decoration:none}
+
+    /* NAV */
+    nav{
+      position:sticky;
+      top:0;
+      z-index:10;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:18px 60px;
+      border-bottom:1px solid var(--border);
+      background:rgba(5,5,16,0.84);
+      backdrop-filter:blur(18px);
+    }
+    .nav-left{display:flex;gap:12px;align-items:center}
+    .badge{
+      font-family:'Space Mono',monospace;
+      font-size:10px;
+      letter-spacing:0.22em;
+      text-transform:uppercase;
+      color:rgba(0,245,255,0.92);
+      padding:10px 12px;
+      border-radius:999px;
+      border:1px solid rgba(0,245,255,0.22);
+      background:rgba(0,245,255,0.06);
+      white-space:nowrap;
+    }
+    .nav-title{
+      font-family:'Syne',sans-serif;
+      font-weight:800;
+      text-transform:uppercase;
+      letter-spacing:-0.01em;
+      font-size:14px;
+      color:rgba(255,255,255,0.86);
+    }
+    .nav-links{display:flex;gap:10px;align-items:center;flex-wrap:wrap;justify-content:flex-end}
+    .nav-links a{
+      font-family:'Space Mono',monospace;
+      font-size:11px;
+      letter-spacing:0.12em;
+      text-transform:uppercase;
+      color:rgba(255,255,255,0.70);
+      padding:10px 14px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,0.14);
+      background:rgba(0,0,0,0.18);
+      transition:all .18s ease;
+    }
+    .nav-links a:hover{
+      border-color:rgba(255,45,120,0.60);
+      box-shadow:0 0 0 4px rgba(255,45,120,0.10);
+      transform:translateY(-1px);
+      color:var(--text);
+    }
+
+    /* HERO */
+    header{
+      position:relative;
+      z-index:1;
+      max-width:1200px;
+      margin:0 auto;
+      padding:58px 60px 22px;
+    }
+    .kicker{
+      font-family:'Space Mono',monospace;
+      font-size:11px;
+      letter-spacing:0.24em;
+      text-transform:uppercase;
+      color:rgba(0,245,255,0.85);
+      margin-bottom:16px;
+    }
+    h1{
+      font-family:'Syne',sans-serif;
+      font-weight:800;
+      text-transform:uppercase;
+      letter-spacing:-0.02em;
+      font-size:clamp(34px,4.8vw,62px);
+      line-height:1.06;
+      margin-bottom:14px;
+    }
+    .glow{
+      background:linear-gradient(90deg,var(--neon-pink),var(--neon-purple),var(--neon-cyan));
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+      background-clip:text;
+    }
+    .sub{
+      color:var(--muted);
+      line-height:1.75;
+      font-size:15px;
+      max-width:80ch;
+    }
+
+    /* LAYOUT */
+    .wrap{
+      position:relative;
+      z-index:1;
+      max-width:1200px;
+      margin:0 auto;
+      padding:18px 60px 80px;
+      display:grid;
+      grid-template-columns: 0.95fr 1.05fr;
+      gap:18px;
+      align-items:start;
+    }
+
+    .photo-card{
+      border-radius:var(--radius);
+      border:1px solid rgba(255,255,255,0.14);
+      background:linear-gradient(135deg, rgba(255,45,120,0.10), rgba(176,68,255,0.10), rgba(0,245,255,0.08));
+      box-shadow:var(--shadow);
+      overflow:hidden;
+      position:relative;
+      min-height:520px;
+    }
+    .photo-card::before{
+      content:'';
+      position:absolute;
+      inset:0;
+      background:
+        radial-gradient(520px 260px at 18% 18%, rgba(255,45,120,0.18), transparent 62%),
+        radial-gradient(520px 260px at 86% 86%, rgba(0,245,255,0.12), transparent 62%),
+        radial-gradient(520px 260px at 72% 22%, rgba(176,68,255,0.12), transparent 62%);
+      pointer-events:none;
+      opacity:0.95;
+    }
+    .photo-inner{
+      position:relative;
+      height:100%;
+      padding:18px;
+      display:grid;
+      grid-template-rows: 1fr auto;
+      gap:14px;
+    }
+    .photo-frame{
+      border-radius:16px;
+      overflow:hidden;
+      border:1px solid rgba(255,255,255,0.16);
+      background:rgba(0,0,0,0.18);
+      position:relative;
+    }
+    .photo-frame img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+      filter:saturate(1.04) contrast(1.05);
+      transform:scale(1.03);
+      opacity:0.92;
+    }
+    .photo-frame::after{
+      content:'';
+      position:absolute;
+      inset:0;
+      background:linear-gradient(to top, rgba(0,0,0,0.62), rgba(0,0,0,0.10));
+      pointer-events:none;
+    }
+    .photo-tags{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+    }
+    .pill{
+      font-family:'Space Mono',monospace;
+      font-size:10px;
+      letter-spacing:0.14em;
+      text-transform:uppercase;
+      padding:10px 12px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,0.14);
+      background:rgba(0,0,0,0.14);
+      color:rgba(255,255,255,0.72);
+    }
+    .pill strong{color:rgba(0,245,255,0.90);font-weight:700}
+
+    .content{
+      display:grid;
+      gap:18px;
+    }
+    .card{
+      border-radius:var(--radius);
+      border:1px solid rgba(255,255,255,0.14);
+      background:var(--card);
+      box-shadow:var(--shadow);
+      overflow:hidden;
+      position:relative;
+    }
+    .card::before{
+      content:'';
+      position:absolute;
+      inset:0;
+      background:
+        radial-gradient(520px 240px at 15% 0%, rgba(255,45,120,0.14), transparent 58%),
+        radial-gradient(520px 240px at 85% 100%, rgba(0,245,255,0.10), transparent 62%);
+      opacity:0.9;
+      pointer-events:none;
+    }
+    .inner{position:relative;padding:26px 26px 24px}
+    .title-row{
+      display:flex;
+      gap:12px;
+      align-items:baseline;
+      flex-wrap:wrap;
+      margin-bottom:10px;
+    }
+    .num{
+      font-family:'Space Mono',monospace;
+      font-size:10px;
+      letter-spacing:0.22em;
+      text-transform:uppercase;
+      padding:9px 12px;
+      border-radius:999px;
+      border:1px solid rgba(0,245,255,0.22);
+      background:rgba(0,245,255,0.06);
+      color:rgba(0,245,255,0.88);
+      white-space:nowrap;
+    }
+    h2{
+      font-family:'Syne',sans-serif;
+      font-weight:800;
+      text-transform:uppercase;
+      letter-spacing:-0.01em;
+      font-size:22px;
+    }
+    p{color:rgba(255,255,255,0.78);line-height:1.9;font-size:14px}
+    p + p{margin-top:12px}
+
+    /* PROFILE GRID */
+    .meta{
+      margin-top:14px;
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:12px;
+    }
+    .meta-item{
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,0.10);
+      background:rgba(0,0,0,0.14);
+      padding:12px 14px;
+    }
+    .meta-k{
+      font-family:'Space Mono',monospace;
+      font-size:10px;
+      letter-spacing:0.18em;
+      text-transform:uppercase;
+      color:rgba(255,255,255,0.55);
+      margin-bottom:6px;
+    }
+    .meta-v{color:rgba(255,255,255,0.86);font-size:14px;line-height:1.55}
+
+    footer{
+      position:relative;
+      z-index:1;
+      max-width:1200px;
+      margin:0 auto;
+      padding:18px 60px 42px;
+      border-top:1px solid rgba(255,255,255,0.10);
+      display:flex;
+      justify-content:space-between;
+      gap:14px;
+      flex-wrap:wrap;
+      color:rgba(255,255,255,0.55);
+      font-family:'Space Mono',monospace;
+      font-size:11px;
+      letter-spacing:0.10em;
+      text-transform:uppercase;
+    }
+
+    @media (max-width: 1020px){
+      nav{padding:16px 20px}
+      header{padding:54px 20px 22px}
+      .wrap{padding:14px 20px 70px;grid-template-columns:1fr}
+      .photo-card{min-height:420px}
+      .meta{grid-template-columns:1fr}
+      footer{padding:18px 20px 42px}
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="nav-left">
+      <div class="badge">// Profil</div>
+      <div class="nav-title">Penulis Portofolio</div>
+    </div>
+    <div class="nav-links">
+      <a href="portofolio-individu.html" target="_blank" rel="noopener noreferrer">Kembali</a>
+      <a href="#minat">Minat</a>
+      <a href="#alasan">Alasan</a>
+    </div>
+  </nav>
+
+  <header>
+    <div class="kicker">✦ Get to know the writer</div>
+    <h1>Leigiavny Cantara <span class="glow">Ashari</span></h1>
+    <p class="sub">
+      Profil singkat, minat, dan alasan pembuatan portofolio untuk mata kuliah Etika Budaya.
+    </p>
+  </header>
+
+  <main class="wrap">
+    <section class="photo-card" aria-label="Foto dan highlight">
+      <div class="photo-inner">
+        <div class="photo-frame">
+          <img src="writer.jpg" alt="Foto profil penulis" />
+        </div>
+        <div class="photo-tags">
+          <div class="pill"><strong>Nama</strong> Leigiavny</div>
+          <div class="pill"><strong>Panggilan</strong> Gia</div>
+          <div class="pill"><strong>Prodi</strong> Seni Kuliner</div>
+          <div class="pill"><strong>Semester</strong> 4</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="content">
+      <article class="card" id="minat">
+        <div class="inner">
+          <div class="title-row">
+            <div class="num">SECTION 01</div>
+            <h2>Minat & Fokus</h2>
+          </div>
+          <p>
+            Aku punya ketertarikan yang besar pada bagaimana nilai-nilai sosial dan budaya memengaruhi kehidupan sehari-hari, mulai dari cara orang berkomunikasi,
+            membentuk norma, hingga bagaimana teknologi ikut membawa perubahan dalam pola pikir dan perilaku masyarakat. Hal-hal seperti ini menurutku sangat menarik
+            karena selalu dekat dengan kehidupan kita, tetapi sering kali tidak disadari secara mendalam.
+          </p>
+          <p>
+            Mata kuliah Etika Budaya juga membantu aku memahami bahwa suatu tindakan tidak hanya dilihat dari benar atau salah saja, tetapi juga dari bagaimana budaya
+            di suatu lingkungan membentuk pandangan tentang apa yang dianggap pantas, layak, dan bermakna. Dari sini, aku jadi lebih peka dalam melihat berbagai sudut
+            pandang dalam kehidupan sosial.
+          </p>
+        </div>
+      </article>
+
+      <article class="card" id="alasan">
+        <div class="inner">
+          <div class="title-row">
+            <div class="num">SECTION 02</div>
+            <h2>Alasan Membuat Portofolio Ini</h2>
+          </div>
+          <p>
+            Portofolio ini aku buat untuk merangkum proses belajarku selama mengikuti perkuliahan Etika Budaya, sekaligus menjadi wadah untuk melatih kemampuan menulis
+            reflektif dengan lebih baik. Lewat portofolio ini, aku tidak hanya ingin menampilkan hasil tugas, tetapi juga menunjukkan bagaimana aku memahami materi,
+            menghubungkannya dengan fenomena nyata, dan menyusun kesimpulan yang bisa dipertanggungjawabkan dengan baik.
+          </p>
+          <p>
+            Selain itu, aku juga ingin membuat isi portofolio ini lebih rapi dan mudah dipahami, sehingga pembaca dapat menavigasi setiap bagiannya dengan nyaman.
+            Di dalamnya terdapat pengantar mata kuliah, ringkasan enam topik materi, serta halaman relevansi yang menjelaskan hubungan antara tugas yang dikerjakan
+            dengan capaian pembelajaran yang diharapkan.
+          </p>
+          <div class="meta">
+            <div class="meta-item">
+              <div class="meta-k">Nama</div>
+              <div class="meta-v">Leigiavny Cantara Ashari</div>
+            </div>
+            <div class="meta-item">
+              <div class="meta-k">Nama Panggilan</div>
+              <div class="meta-v">Gia</div>
+            </div>
+            <div class="meta-item">
+              <div class="meta-k">Program Studi</div>
+              <div class="meta-v">Seni Kuliner</div>
+            </div>
+            <div class="meta-item">
+              <div class="meta-k">Semester Saat Ini</div>
+              <div class="meta-v">4</div>
+            </div>
+          </div>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <footer>
+    <div>© 2026 Leigiavny Cantara Ashari — 2400101045</div>
+    <div><a href="portofolio-individu.html" target="_blank" rel="noopener noreferrer" style="text-decoration: underline;">Kembali ke Portofolio</a></div>
+  </footer>
+</body>
+</html>
